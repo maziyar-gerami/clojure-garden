@@ -1,7 +1,6 @@
 (ns platform.ui.pages.dashboard.view
   (:require
     [antd.core :as antd]
-    [antd.icons :as icons]
     [clojure.string :as str]
     [platform.ui.components :as components]
     [platform.ui.utils.string :refer [format date-to-string]]
@@ -42,15 +41,19 @@
                        (when (some #{"cljs" "clojurescript"} topics)
                          [antd/tag {:color "red"} "cljs"])]
                       [antd/space {:direction "horizontal"}
-                       [icons/star-outlined]
+                       [antd.icons/star-outlined]
                        [antd/typography-text stargazer-count]
-                       [icons/team-outlined]
+                       [antd.icons/team-outlined]
                        [antd/typography-text contributor-count]
-                       [icons/fork-outlined]
+                       [antd.icons/fork-outlined]
                        [antd/typography-text fork-count]
-                       [icons/download-outlined]
+                       [antd.icons/download-outlined]
                        [antd/typography-text total-downloads]
-                       [icons/format-painter-outlined]
+                       [antd.icons/twitter-outlined]
+                       [antd/typography-text (get :twitter-mentions repo 0)]
+                       [antd.icons/slack-outlined]
+                       [antd/typography-text (get :slack-mentions repo 0)]
+                       [antd.icons/format-painter-outlined]
                        [antd/typography-text updated-at]]
                       [antd/typography-link {:href license-url :target "_blank"} license-name]]]]))))]
       (conj [:div {:style {:margin-top "20px"}}
