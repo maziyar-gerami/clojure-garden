@@ -1,6 +1,7 @@
 (ns platform.ui.pages.dashboard.view
   (:require
     [antd.core :as antd]
+    [antd.icons :as icons]
     [clojure.string :as str]
     [platform.ui.components :as components]
     [platform.ui.utils.string :refer [format date-to-string]]
@@ -14,9 +15,9 @@
        (into [antd/row {:gutter [12 12]}]
              (for [repos (partition-all 4 repositories)]
 
-               (for [{:keys [owner name description license-name license-url
-                             stargazer-count contributor-count fork-count topics
-                             total-downloads updated-at]} repos]
+               (for [{:as repo :keys [owner name description license-name license-url
+                                      stargazer-count contributor-count fork-count topics
+                                      total-downloads updated-at]} repos]
                  (let [title (format "%s/%s \uD83C\uDF31" owner name)
                        description (-> (or description "No description")
                                        (str/capitalize)
@@ -41,19 +42,19 @@
                        (when (some #{"cljs" "clojurescript"} topics)
                          [antd/tag {:color "red"} "cljs"])]
                       [antd/space {:direction "horizontal"}
-                       [antd.icons/star-outlined]
+                       [icons/star-outlined]
                        [antd/typography-text stargazer-count]
-                       [antd.icons/team-outlined]
+                       [icons/team-outlined]
                        [antd/typography-text contributor-count]
-                       [antd.icons/fork-outlined]
+                       [icons/fork-outlined]
                        [antd/typography-text fork-count]
-                       [antd.icons/download-outlined]
+                       [icons/download-outlined]
                        [antd/typography-text total-downloads]
-                       [antd.icons/twitter-outlined]
+                       [icons/twitter-outlined]
                        [antd/typography-text (get :twitter-mentions repo 0)]
-                       [antd.icons/slack-outlined]
+                       [icons/slack-outlined]
                        [antd/typography-text (get :slack-mentions repo 0)]
-                       [antd.icons/format-painter-outlined]
+                       [icons/format-painter-outlined]
                        [antd/typography-text updated-at]]
                       [antd/typography-link {:href license-url :target "_blank"} license-name]]]]))))]
       (conj [:div {:style {:margin-top "20px"}}

@@ -1,6 +1,5 @@
-(ns platform.slack.slack-message
+(ns platform.slack.sql.slack-message
   (:require
-    [clojure.instant :as instant]
     [honey.sql.helpers :as helpers]
     [platform.storage.jdbc-wrappers :as jw])
   (:import
@@ -11,7 +10,7 @@
 
 
 (defn insert-message!
-  [^HikariDataSource db {:as _message :keys [content content_type timestamp sender_id stream_id]}]
+  [^HikariDataSource db {:as _message :keys [content timestamp sender_id stream_id]}]
   (jw/execute-one! db (-> (helpers/insert-into :slack-messages)
                           (helpers/values [{:id            (UUID/randomUUID)
                                             :content       content
